@@ -1,6 +1,5 @@
 # Startup-Sucess-Index-Simulator
 
-<hr>
 
 # Purpose
 
