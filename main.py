@@ -6,6 +6,7 @@ import requests
 import random
 from mimesis.providers import Finance
 from data_models.models import Startup
+from datetime import datetime
 
 finance_gen = Finance()
 
@@ -59,8 +60,10 @@ def generate_startups(countries, cpi_dictionary, seed_funding_distribution) -> l
 
   return startups
 
-def export_to_csv(filename: str, startups: list[Startup], success_ratios: list[float]):
-  with open(filename, 'w', newline='') as file:
+def export_to_csv(startups: list[Startup], success_ratios: list[float]):
+  current_time = datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
+
+  with open(f"data_{current_time}.csv", 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Simulation number', 'Country', 'Company name', 'CPI', 'Seed funding', 'Success value', 'Overall simulation success ratio'])
 
@@ -99,7 +102,7 @@ def main():
     country_list.append(key)
 
   run_simulations(country_list, cpi_dictionary, most_successful_startups, success_ratios)
-  export_to_csv('data.csv', most_successful_startups, success_ratios)
+  export_to_csv(most_successful_startups, success_ratios)
 
 if (__name__ == "__main__"):
   main()
