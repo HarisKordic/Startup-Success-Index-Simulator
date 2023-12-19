@@ -11,14 +11,15 @@ from datetime import datetime
 finance_gen = Finance()
 
 # Internal simulation inputs
-# TODO: Smarter way to calculate weights for CPI and seed funding
 NUM_SIMULATIONS = 10000
+STARTUP_COUNT = 100
 CPI_WEIGHT = 0.1
 SEED_FUNDING_MEAN = 700000
 SEED_FUNDING_STD_DEV = 100000
 SEED_FUNDING_WEIGHT = 1.0
 
 def calculate_success_value(cpi: float, seed_funding: float) -> float:
+  # Determines the approximate min and max values returned earlier with a normal distribution
   seed_funding_min = SEED_FUNDING_MEAN - 3 * SEED_FUNDING_STD_DEV
   seed_funding_max = SEED_FUNDING_MEAN + 3 * SEED_FUNDING_STD_DEV
   normalized_cpi = cpi / 100.0
@@ -28,7 +29,7 @@ def calculate_success_value(cpi: float, seed_funding: float) -> float:
   
 def determine_success(startups: list[Startup]) -> int:
   startup_success_values = list[float]()
-  treshold = 420000
+  treshold = 420000 # Arbitrarily taken from the success values
   success_count = 0
 
   for startup in startups:
@@ -45,10 +46,9 @@ def get_seed_funding_distribution():
   return np.random.normal(loc=SEED_FUNDING_MEAN, scale=SEED_FUNDING_STD_DEV, size=NUM_SIMULATIONS)
 
 def generate_startups(countries, cpi_dictionary, seed_funding_distribution) -> list[Startup]:  
-  startup_count = 100
   startups = list[Startup]()
 
-  for i in range(startup_count):
+  for i in range(STARTUP_COUNT):
     random_country = countries[random.randint(0, countries.__len__() - 1)]
 
     startups.append(Startup(
@@ -70,6 +70,7 @@ def export_to_csv(startups: list[Startup], success_ratios: list[float]):
     for index, startup in enumerate(startups):
       writer.writerow([index, startup.country, startup.name, startup.cpi_index, np.round(startup.seed_funding_index, 2), np.round(startup.success_value, 2), f"{success_ratios[index]}%"])
 
+# Scraping the latest CPI values from tradingeconomics.com
 def get_cpi() -> dict[str, float]:
   url = 'https://tradingeconomics.com/country-list/corruption-index?continent=europe'
   user_agent = 'Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0'
