@@ -14,8 +14,8 @@ finance_gen = Finance()
 NUM_SIMULATIONS = 10000
 STARTUP_COUNT = 100
 CPI_WEIGHT = 0.1
-SEED_FUNDING_MEAN = 700000
-SEED_FUNDING_STD_DEV = 100000
+SEED_FUNDING_MEAN = 1000000
+SEED_FUNDING_STD_DEV = 600000
 SEED_FUNDING_WEIGHT = 1.0
 
 def calculate_success_value(cpi: float, seed_funding: float) -> float:
