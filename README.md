@@ -23,3 +23,19 @@ CPI_WEIGHT - Importance of CPI (Consumer Price Index) during calculation
 SEED_FUNDING_MEAN - Average value of seed funding, i.e., the amount of money
 SEED_FUNDING_STD_DEV - Standard deviation from the average funding
 SEED_FUNDING_WEIGHT - Importance of average funding during calculation
+
+<hr>
+
+**Example run plots:**
+
+**All**
+![image](https://github.com/HarisKordic/Startup-Success-Index-Simulator/assets/58373221/847cc384-92ae-43d5-8650-e5cd881bfd2f)
+
+**Bottom 10**
+![image](https://github.com/HarisKordic/Startup-Success-Index-Simulator/assets/58373221/f4b9dcfd-ca51-4a43-b895-920e2ce18f48)
+
+**Top 10**
+![image](https://github.com/HarisKordic/Startup-Success-Index-Simulator/assets/58373221/ae7f16cc-2f67-433c-a897-237d0889d8bf)
+
+
+
